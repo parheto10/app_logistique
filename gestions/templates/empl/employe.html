@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block breadcumbs %}
+    <div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">EMPLOYES</h4>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+       <div class="col-12"> 
+   <div class="card">
+       <div class="card-body">
+         <h5 class="card-title">Listes des employés</h5>
+         {% if messages %}
+         <div class="alert alert-success text-center alert-dismissible " role="alert">
+             
+             <ul class="messages">
+                 {% for message in messages %}
+                 <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+                 {% endfor %}
+             </ul>
+             
+         </div>
+         {% endif %}
+
+         <div class="table-responsive">
+           <a href="{% url 'gestions:ajout_employe' %}" class="btn btn-primary" style="float: right; margin-right: 20px;" > Ajouter </a>
+           <table id="zero_config" class="table table-striped table-bordered">
+             <thead>
+               <tr>
+                 <th>NOM</th>
+                 <th >PRENOM</th>
+                 <th >FONCTION</th>
+                 <th >EMAIL</th>
+                 <th >CONTACT</th>
+                 <th >ETAT</th>
+                 <th >MATRICULE</th>
+                 <th >ACTION</th>
+               </tr>
+             </thead>
+             <tbody>
+
+                {% for employe in employes %}
+                <tr>
+                    <td>{{employe.nom}}</td>
+                    <td>{{employe.prenom}}</td>
+                    <td>{{employe.fonction}}</td>
+                    <td>{{employe.email}}</td>
+                    <td>{{employe.contact}}</td>
+                    <td>{{employe.etat}}</td>
+                    <td>{{employe.matricule}}</td>
+                    <td>  
+                        <a href="{% url 'gestions:edit_employe' employe.id %}" class="btn btn-primary btn-sm">VOIR </a>  
+                    </td>
+                  </tr>
+                {% endfor %}
+
+             </tfoot>
+           </table>
+         </div>
+       </div>
+     </div>
+   
+   
+
+   
+     </div>
+     </div>
+     </div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% load widget_tweaks %}
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">Modification du type de vehicule {{vehicule.libelle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form action="{% url 'parametres:update_vehicule' %}" method="post"  id="form" enctype="multipart/form-data" novalidate>
+              {% csrf_token %}
+              <div class="form-group">
+                  <label>Libelle</label>
+                  {% render_field form.libelle type="text" class="form-control" %}
+                  <input type="hidden" value="{{vehicule.id}}" name="vehicule" />
+                  <span class="code_error text-danger"></span>
+              </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <button type="submit"  class="btn btn-success">Modifier</button>
+                    </div> 
+      </div>
+
+  </form>
+    </div>
+  </div>

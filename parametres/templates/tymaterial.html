@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block breadcumbs %}
+    <div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">TYPE MATERIEL</h4>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+ <div class="row">
+    <div class="col-12"> 
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Listes des types de matériaux</h5>
+      {% if error == '' %}
+      {% if messages %}
+      <div class="alert alert-success text-center alert-dismissible " role="alert">
+          
+          <ul class="messages">
+              {% for message in messages %}
+              <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+              {% endfor %}
+          </ul>
+          
+      </div>
+      {% endif %}
+  {% endif %}
+
+  {% if error != '' %}
+  <div class="alert alert-danger text-center alert-dismissible " role="alert">
+      <ul class="messages">
+          {% for message in messages %}
+          <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+          {% endfor %}
+      </ul>
+  </div>
+  {% endif %}
+      <div class="table-responsive">
+        <button type="button" class="btn btn-primary" style="float: right; margin-right: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal"> Ajouter </button>
+        <table id="zero_config" class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>LIBELLE</th>
+              <th style="max-width: 50px;">ACTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tymateriel in tymateriels %}
+              <tr>
+                <td>{{tymateriel.libelle}}</td>
+                <td>
+                  <a class="btn btn-primary btn-sm" onclick="edit('{% url 'parametres:uptymateriel' tymateriel.id %}')">Modifier </a>
+                  {% comment %} <a href="{% url 'parametres:deltymateriel' tymateriel.id %}" class="btn btn-danger btn-sm">Supprimer </a> {% endcomment %}
+                </td>
+              </tr>
+            {% endfor %}
+
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Enregistrer type matérial</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="" method="POST"  id="form" enctype="multipart/form-data" novalidate>
+              {% csrf_token %}
+                <div class="form-group">
+                    <label>Libelle</label>
+                    {% render_field form.libelle type="text" class="form-control" %}
+                    <span class="code_error text-danger"></span>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                  <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+
+        </div>
+
+    </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="Modal" aria-hidden="true">
+
+  </div>
+  </div>
+  </div>
+  </div>
+    
+{% endblock %}

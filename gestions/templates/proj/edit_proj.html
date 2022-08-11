@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block breadcumbs %}
+    <div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">DETAILS</h4>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-md-2">
+                    {% if projet.logo_partenaire %}
+                        <img src="http://127.0.0.1:8000/static{{projet.logo_partenaire.url}}" class="mr-2" alt="Profile Page" width="70px" height="70px" style="border: 1px solid #ddd;">
+                        <img src="http://127.0.0.1:8000/static{{projet.logo_sarl.url}}" class="mr-2" alt="Profile Page" width="70px" height="70px" style="border: 1px solid #ddd;">
+                    {% else %}
+                    <img src="" class="mr-2" alt="NO IMAGE" width="70px" height="70px" style="border: 1px solid #ddd;">
+                    {% endif %}
+                    
+                </div>
+                <div class="col-md-8 mt-3" >
+                    <strong>SIGLE : {{projet.sigle}}</strong> <br>
+                    <strong>TITRE : {{projet.titre}}</strong><br>
+                    <strong>DATE DEBUT : {{projet.date_debut}}</strong><br>
+                    <strong>DATE FIN : {{projet.date_fin}}</strong><br>
+                    <strong>ETAT : {{projet.etat}}</strong><br>
+                </div>
+          
+            </div>
+            
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+       <div class="col-12"> 
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    {% if messages %}
+                    <div class="alert alert-success text-center alert-dismissible " role="alert">
+                        
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+                            {% endfor %}
+                        </ul>
+                        
+                    </div>
+                    {% endif %}
+                    <div class="col-md-6">
+                      <div class="card">
+                        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                          <div class="card-body">
+                            <h4 class="card-title">FORMULAIRE DE MISE A JOUR </h4>
+                            <div class="form-group row">
+                              <label
+                                for="fname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Sigle</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.sigle type="text" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="lname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Titre</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.titre type="text" class="form-control" %}
+                              </div>
+                            </div>  
+                            <div class="form-group row">
+                              <label
+                                for="lname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Etat</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.etat type="text" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="lname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Date debut</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.date_debut type="date" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="email1"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Date fin</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.date_fin type="date" class="form-control" %}
+                              </div>
+                            </div>
+                    
+                          </div>
+                        
+                      </div>
+                    </div>  
+                    <div class="col-md-6">
+                      <div class="card">
+                          <div class="card-body">
+                           
+                            <div class="form-group row">
+                              <label
+                                for="cono1"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Logo partenaire</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.logo_partenaire  class="form-control" %}
+                              </div>
+                            </div>   
+                            
+                            <div class="form-group row">
+                              <label
+                                for="cono1"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Logo Agro-Map</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.logo_sarl  class="form-control" %}
+                              </div>
+                            </div>
+
+                          </div>
+                 
+                       
+                      </div>
+                    </div>
+                    <div class="border-top">
+                        <div class="card-body">
+                          <button type="submit" class="btn btn-primary form-control">
+                            Mettre à jour
+                          </button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+{% endblock %}

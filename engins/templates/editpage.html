@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block breadcumbs %}
+    <div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">DETAILS</h4>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-md-2">
+                    {% if engin.engin_image %}
+                        <img src="http://127.0.0.1:8000/static{{engin.engin_image.url}}" class="mr-2" alt="Profile Page" width="200px" height="200px" style="border: 1px solid #ddd;">
+                    {% else %}
+                    <img src="" class="mr-2" alt="NO IMAGE" width="200px" height="200px" style="border: 1px solid #ddd;">
+                    {% endif %}
+                    
+                </div>
+                <div class="col-md-8 mt-3" >
+                    <strong>MATRICULE : {{engin.matricule}}</strong> <br>
+                    <strong>MARQUE : {{engin.marque}}</strong><br>
+                    <strong>MODEL : {{engin.model}}</strong><br>
+                    <strong>COULEUR : {{engin.couleur}}</strong><br>
+                    <strong>TYPE : {{engin.type_engins}}</strong><br>
+                    <strong>ETAT : {{engin.etat}}</strong><br>
+                    <strong>DATE ACHAT : {{engin.date_achat}}</strong><br>
+                    <strong>NUMERO DE CHARSIS : {{engin.numcharsis}}</strong><br>
+                    <strong>MISE EN CIRCULATION : {{engin.mise_en_circulation}}</strong><br>
+                </div>
+
+                {% if engin.etat == 'VENDU' or engin.etat == 'OCCUPE' %}
+
+                {% else %}
+                    <div class="col-md-2 mt-3" >
+                        <a href="{% url 'engins:deletecar' engin.id %}" class="btn btn-danger btn-sm">SUPPRIMER ENGIN </a>  
+                    </div>
+                {% endif %}
+            </div>
+            
+        </div>
+      </div>
+    </div>
+</div>
+{% if engin.etat == 'VENDU' %}
+
+{% else %}
+<div class="container-fluid">
+    <div class="row">
+       <div class="col-12"> 
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    {% if messages %}
+                    <div class="alert alert-success text-center alert-dismissible " role="alert">
+                        
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+                            {% endfor %}
+                        </ul>
+                        
+                    </div>
+                    {% endif %}
+                    <div class="col-md-6">
+                      <div class="card">
+                        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                          <div class="card-body">
+                            <h4 class="card-title">FORMULAIRE DE MISE A JOUR </h4>
+                            <div class="form-group row">
+                              <label
+                                for="fname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Marque</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.marque type="text" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="lname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Model</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.model type="text" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="lname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Couleur</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.couleur type="text" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="email1"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Type de véhicule</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.type_engins type="text" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="cono1"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Date d'achat</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.date_achat type="date" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="cono1"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Prix d'achat</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.prix_achat type="number" class="form-control" %}
+                              </div>
+                            </div>
+                          </div>
+                        
+                      </div>
+                    </div>  
+                    <div class="col-md-6">
+                      <div class="card">
+                          <div class="card-body">
+                            <div class="form-group row">
+                              <label
+                                for="fname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Matricule</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.matricule type="text" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="lname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Numero de chasir</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.numcharsis type="text" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="lname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Date de mise en circulation</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.mise_en_circulation type="date" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="email1"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Disponibilité (Etat)</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.etat type="text" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="cono1"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Image du véhicule</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.engin_image  class="form-control" %}
+                              </div>
+                            </div>
+                          </div>
+                 
+                       
+                      </div>
+                    </div>
+                    <div class="border-top">
+                        <div class="card-body">
+                          <button type="submit" class="btn btn-primary form-control">
+                            Mettre à jour
+                          </button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endif %}
+
+{% endblock %}

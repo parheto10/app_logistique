@@ -1,0 +1,119 @@
+<div class="scroll-sidebar">
+  <!-- Sidebar navigation-->
+  <nav class="sidebar-nav">
+    <ul id="sidebarnav" class="pt-4">
+      <li class="sidebar-item">
+        <a
+          class="sidebar-link waves-effect waves-dark sidebar-link"
+          href="{% url 'index' %}"
+          aria-expanded="false"
+          ><i class="mdi mdi-view-dashboard"></i
+          ><span class="hide-menu">Dashboard</span></a
+        >
+      </li>
+      <li class="sidebar-item">
+        <a
+          class="sidebar-link has-arrow waves-effect waves-dark"
+          href="javascript:void(0)"
+          aria-expanded="false"
+          ><i class="mdi mdi-settings"></i
+          ><span class="hide-menu">PARAMETRES </span></a
+        >
+        <ul aria-expanded="false" class="collapse first-level">
+          <li class="sidebar-item">
+            <a href="{% url 'parametres:fonction' %}" class="sidebar-link"
+              ><i class="mdi mdi-note-outline"></i
+              ><span class="hide-menu"> Fonctions </span></a
+            >
+          </li>
+          <li class="sidebar-item">
+            <a href="{% url 'parametres:tyvehicule' %}" class="sidebar-link"
+              ><i class="mdi mdi-note-plus"></i
+              ><span class="hide-menu"> Types véhicules </span></a
+            >
+          </li>
+          <li class="sidebar-item">
+            <a href="{% url 'parametres:typem' %}" class="sidebar-link"
+              ><i class="mdi mdi-note-plus"></i
+              ><span class="hide-menu"> Types matériaux </span></a
+            >
+          </li>
+        </ul>
+      </li>
+      <li class="sidebar-item">
+        <a
+          class="sidebar-link  waves-effect waves-dark"
+          href="{% url 'engins:home' %}"
+          aria-expanded="false"
+          ><i class="mdi mdi-car"></i><span class="hide-menu">ENGINS </span></a
+        >
+      </li>
+      <li class="sidebar-item">
+        <a
+          class="sidebar-link has-arrow waves-effect waves-dark"
+          href="javascript:void(0)"
+          aria-expanded="false"
+          ><i class="mdi mdi-monitor"></i
+          ><span class="hide-menu">EQUIPEMENTS </span></a
+        >
+        <ul aria-expanded="false" class="collapse first-level">
+          <li class="sidebar-item">
+            <a href="{% url 'equipements:accesooires' %}" class="sidebar-link"
+              ><i class="mdi mdi-mouse-variant"></i
+              ><span class="hide-menu"> ACCESSOIRES </span></a
+            >
+          </li>
+          <li class="sidebar-item">
+            <a href="{% url 'equipements:materiels' %}" class="sidebar-link"
+              ><i class="mdi mdi-cart-outline"></i
+              ><span class="hide-menu"> Outils </span></a
+            >
+          </li>
+        </ul>
+      </li>
+      
+      <li class="sidebar-item">
+        <a
+          class="sidebar-link has-arrow waves-effect waves-dark"
+          href="javascript:void(0)"
+          aria-expanded="false"
+          ><i class="mdi mdi-account-switch"></i
+          ><span class="hide-menu">Gestions </span></a
+        >
+        <ul aria-expanded="false" class="collapse first-level">
+          <li class="sidebar-item">
+            <a href="{% url 'gestions:projets' %}" class="sidebar-link"
+              ><i class="mdi mdi-folder-multiple"></i
+              ><span class="hide-menu"> Projet </span></a
+            >
+          </li>
+          <li class="sidebar-item">
+            <a href="{% url 'gestions:missions' %}" class="sidebar-link"
+              ><i class="mdi mdi-thumb-up-outline"></i
+              ><span class="hide-menu"> Missions </span></a
+            >
+          </li>  
+          <li class="sidebar-item">
+            <a href="{% url 'gestions:employes' %}" class="sidebar-link"
+              ><i class="mdi mdi-human-child"></i
+              ><span class="hide-menu"> Employés </span></a
+            >
+          </li>
+          <li class="sidebar-item">
+            <a href="{% url 'gestions:courses' %}" class="sidebar-link"
+              ><i class="mdi mdi-timetable"></i
+              ><span class="hide-menu"> Courses </span></a
+            >
+          </li> 
+          {% comment %} <li class="sidebar-item">
+            <a href="{% url 'gestions:dommages' %}" class="sidebar-link"
+              ><i class="mdi mdi-help-circle"></i
+              ><span class="hide-menu"> Dommages </span></a
+            >
+          </li> {% endcomment %}
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  <!-- End Sidebar navigation -->
+</div>

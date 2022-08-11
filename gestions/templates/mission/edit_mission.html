@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block breadcumbs %}
+    <div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">DETAILS MISSIONS</h4>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <h4>INFO MISSION</h4>
+                <div class="col-md-4 mt-3" >
+                    <strong>OBJET DE LA MISSION : </strong> <br>
+                    <strong>DONNE L'ORDRE A  : </strong><br>
+                    <strong>FONCTION : </strong><br>
+                    <strong>DE SE RENDRE EN MISSION A : </strong><br>
+                    <strong>MOYEN DE TRANSPORT : </strong><br>
+                    <strong>DATE DE DEPART : </strong><br>
+                    <strong>DATE DE RETOUR : </strong><br>
+                    <strong>ETAT DE LA MISSION : </strong><br>
+                    <strong>IMPUTATION BUDGETAIRE : </strong><br>
+                </div>
+                <div class="col-md-6 mt-3" >
+                    <strong>{{mission.objet}}</strong> <br>
+                    <strong>{{mission.employe.nom}} {{mission.employe.prenom}}</strong><br>
+                    <strong>{{mission.employe.fonction.libelle}}</strong><br>
+                    <strong>{{mission.localite}}</strong><br>
+                    <strong> {{mission.moyentransport}}</strong><br>
+                    <strong>{{mission.date_depart}}</strong><br>
+                    <strong> {{mission.date_retour}}</strong><br>
+                    <strong> {{mission.etat_mission}}</strong><br>
+                    <strong>{{mission.projet.sigle}} {% if mission.projet.logo_partenaire %}<img src="http://127.0.0.1:8000/static{{mission.projet.logo_partenaire.url}}" class="mr-2" alt="Profile Page" width="70px" height="30px" style="border: 1px solid #ddd;">{% endif %} </strong><br>
+                </div>
+                <div class="col-md-2 mt-3" >
+                    <a href="{% url 'gestions:print_mission_pdf' mission.id %}" class="btn btn-primary btn-sm mb-2">IMPRIMER MISSION (PDF)</a> <br>
+                    {% if mission.etat_mission == 'EN COURS' %}
+                        <a onclick="termine_mission('{% url 'gestions:finir_mission' mission.id %}')" class="btn btn-warning btn-sm mb-2">FINIR MISSION </a> <br> 
+                    {% endif %}
+                    <a href="{% url 'gestions:delete_mission' mission.id %}" class="btn btn-danger btn-sm">SUPPRIMER MISSION </a> <br> 
+                   
+                     
+                </div>
+          
+            </div>
+            
+        </div>
+      </div>
+    </div>
+</div>
+
+{% comment %} <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <h4>AUTRES INFOS</h4>
+                <div class="col-md-2">
+                    {% if course.vehicule.engin_image %}
+                        <img src="http://127.0.0.1:8000/static{{course.vehicule.engin_image.url}}" class="mr-2" alt="Profile Page" width="200px" height="200px" style="border: 1px solid #ddd;">
+                    {% else %}
+                    <img src="" class="mr-2" alt="NO IMAGE" width="200px" height="200px" style="border: 1px solid #ddd;">
+                    {% endif %}
+                    
+                </div>
+                <div class="col-md-6 mt-3" >
+                    <strong>MARQUE : {{course.vehicule.marque}}</strong> <br>
+                    <strong>MODEL : {{course.vehicule.model}}</strong><br>
+                    <strong>MATRICULE : {{course.vehicule.matricule}}</strong><br>
+                    <strong>NUMERO DE CHARSIS : {{course.vehicule.numcharsis}}</strong><br>
+                </div>
+
+                <div class="col-md-4 mt-3" >
+                    <h6><u>Utilisateur </u></h6>
+                    <strong>NOM : {{course.employe.nom}}</strong> <br>
+                    <strong>PRENOMS : {{course.employe.prenom}}</strong><br>
+                    <strong>FONCTION : {{course.employe.fonction}}</strong><br>
+                    <strong>CONTACT : {{course.employe.contact}}</strong><br>
+                </div>
+          
+            </div>
+            
+        </div>
+      </div>
+    </div>
+</div> {% endcomment %}
+
+
+
+
+{% endblock %}

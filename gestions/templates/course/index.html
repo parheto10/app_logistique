@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block breadcumbs %}
+    <div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">COURSES</h4>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+ <div class="row">
+    <div class="col-12"> 
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Listes des courses</h5>
+
+        {% if messages %}
+        <div class="alert alert-success text-center alert-dismissible " role="alert">
+            
+            <ul class="messages">
+                {% for message in messages %}
+                <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+                {% endfor %}
+            </ul>
+            
+        </div>
+        {% endif %}
+
+
+      <div class="table-responsive">
+        <a href="{% url 'gestions:ajout_course' %}" class="btn btn-primary" style="float: right; margin-right: 20px;" > Ajouter </a>
+        <table id="zero_config" class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th style="max-width: 100px;">UTILISATEUR</th>
+              <th style="max-width: 100px;">MATRICULE</th>
+              <th style="max-width: 100px;">CATEGORIE</th>
+              <th style="max-width: 100px;">ETAT</th>
+              <th style="max-width: 100px;">DATE DEPART</th>
+              <th style="max-width: 100px;">DUREE DE LA COURSE</th>
+              <th style="max-width: 100px;">DESTINATION</th>
+              <th style="max-width: 100px;">ACTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for course in courses %}
+            <tr>
+                <td>{{course.employe.nom}} {{course.employe.prenom}}</td>
+                <td>{{course.vehicule.matricule}}</td>
+                <td>{{course.vehicule.type_engins}}</td>
+                <td>{{course.etat_course}}</td>
+                <td>{{course.date_course}}</td>
+                {% if not course.date_fin %}
+                <td>{{course.created_at | timesince}}</td>
+                {% else %}
+                <td> {{course.diff}} </td>
+                {% endif %}
+                
+                <td>{{course.destination}}</td>
+                <td>    
+                    <a href="{% url 'gestions:edit_course' course.id %}" class="btn btn-primary btn-sm" >Voir </a>
+                    {% if course.etat_course == 'EN COURS' %}
+                    <a  onclick="termine_cours('{% url 'gestions:termine_course' course.id %}')" class="btn btn-danger btn-sm">Terminer </a>
+                    {% endif %}
+                    
+                </td>
+              </tr>
+            {% endfor %}
+
+
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  </div>
+  </div>
+  </div>
+{% endblock %}

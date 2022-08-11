@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block breadcumbs %}
+    <div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">DETAILS</h4>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-md-2">
+                    {% if equipement.materiel_image %}
+                        <img src="http://127.0.0.1:8000/static{{equipement.materiel_image.url}}" class="mr-2" alt="Profile Page" width="200px" height="200px" style="border: 1px solid #ddd;">
+                    {% else %}
+                    <img src="" class="mr-2" alt="NO IMAGE" width="200px" height="200px" style="border: 1px solid #ddd;">
+                    {% endif %}
+                    
+                </div>
+                <div class="col-md-8 mt-3" >
+                    <strong>CODE : {{equipement.code}}</strong> <br>
+                    <strong>MARQUE : {{equipement.marque}}</strong><br>
+                    <strong>MODEL : {{equipement.model}}</strong><br>
+                    <strong>N° SERIE : {{equipement.num_serie}}</strong><br>
+                    <strong>CATEGORIE : {{equipement.type_materiel}}</strong><br>
+                    <strong>ETAT : {{equipement.etat}}</strong><br>
+                    <strong>DATE ACHAT : {{equipement.date_achat}}</strong><br>
+                    <strong>QUANTITE : {{equipement.quantity}}</strong><br>
+                    <strong>DERNIER UTILISATEUR  : {% if user %}{{user.employe.nom}} {{user.employe.prenom}} ( {{user.employe.fonction}} ){% endif %} </strong><br>
+                </div>
+
+
+                    <div class="col-md-2 mt-3" >
+                      {% if user.etat  == False %}
+                      <a href="#" onclick="restitution('{% url 'equipements:restitu_equipement' equipement.id %}')" class="btn btn-info btn-sm">RENDRE </a>
+                      {% else %}
+
+                        {% if equipement.etat == 'FONCTIONNELLE' and equipement.quantity > 0 %}
+                            <a href="#" onclick="edit('{% url 'equipements:attribut_equipement' equipement.id %}')" class="btn btn-primary btn-sm">ATTRIBUER </a>
+                      {% endif %}   
+
+                      {% endif %}
+                                          
+                        <a href="{% url 'equipements:supprimer_equipement' equipement.id %}" class="btn btn-danger btn-sm">SUPPRIMER </a>  
+                    </div>
+          
+            </div>
+            
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+       <div class="col-12"> 
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    {% if messages %}
+                    <div class="alert alert-success text-center alert-dismissible " role="alert">
+                        
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+                            {% endfor %}
+                        </ul>
+                        
+                    </div>
+                    {% endif %}
+                    <div class="col-md-6">
+                      <div class="card">
+                        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                          <div class="card-body">
+                            <h4 class="card-title">FORMULAIRE DE MISE A JOUR </h4>
+                            <div class="form-group row">
+                              <label
+                                for="fname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Code</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.code type="text" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="lname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Numéro de série</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.num_serie type="text" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="lname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Marque</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.marque type="text" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="email1"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Model</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.model type="text" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="cono1"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Date d'achat</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.date_achat type="date" class="form-control" %}
+                              </div>
+                            </div>
+                    
+                          </div>
+                        
+                      </div>
+                    </div>  
+                    <div class="col-md-6">
+                      <div class="card">
+                          <div class="card-body">
+                            <div class="form-group row">
+                              <label
+                                for="fname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Prix</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.prix_achat  class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="lname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Catégorie</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.type_materiel type="text" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="lname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Etat</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.etat type="date" class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="email1"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Quantité</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.quantity  class="form-control" %}
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="cono1"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Image du matériel</label
+                              >
+                              <div class="col-sm-9">
+                                {% render_field form.materiel_image  class="form-control" %}
+                              </div>
+                            </div>
+                          </div>
+                 
+                       
+                      </div>
+                    </div>
+                    <div class="border-top">
+                        <div class="card-body">
+                          <button type="submit" class="btn btn-primary form-control">
+                            Mettre à jour
+                          </button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="Modal" aria-hidden="true">
+
+    </div>
+</div>
+</div>
+
+
+{% endblock %}

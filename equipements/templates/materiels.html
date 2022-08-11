@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block breadcumbs %}
+    <div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">EQUIPEMENTS</h4>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+       <div class="col-12"> 
+   <div class="card">
+       <div class="card-body">
+         <h5 class="card-title">Listes des equipements</h5>
+         {% if messages %}
+         <div class="alert alert-success text-center alert-dismissible " role="alert">
+             
+             <ul class="messages">
+                 {% for message in messages %}
+                 <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+                 {% endfor %}
+             </ul>
+             
+         </div>
+         {% endif %}
+
+         <div class="table-responsive">
+           <a href="{% url 'equipements:ajout_equipement' %}" class="btn btn-primary" style="float: right; margin-right: 20px;" > Ajouter </a>
+           <table id="zero_config" class="table table-striped table-bordered">
+             <thead>
+               <tr>
+                 <th>CODE</th>
+                 <th >N° SERIE</th>
+                 <th >MARQUE</th>
+                 <th >MODEL</th>
+                 <th >DATE D'ACHAT</th>
+                 <th >ETAT</th>
+                 <th >CATEGORIE</th>
+                 <th >ACTION</th>
+               </tr>
+             </thead>
+             <tbody>
+
+                {% for equipement in equipements %}
+                <tr>
+                    <td>{{equipement.code}}</td>
+                    <td>{{equipement.num_serie}}</td>
+                    <td>{{equipement.marque}}</td>
+                    <td>{{equipement.model}}</td>
+                    <td>{{equipement.date_achat}}</td>
+                    <td style=" text-align:center;"><span {% if equipement.etat == 'FONCTIONNELLE' %}class="bg-success"{% else %} class="bg-danger" {% endif %}  style="color: white;">{{equipement.etat}}</span> </td>
+                    <td>{{equipement.type_materiel}}</td>
+                    <td>  
+                        <a href="{% url 'equipements:edit_equipement' equipement.id %}" class="btn btn-primary btn-sm">VOIR </a>  
+                    </td>
+                  </tr>
+                {% endfor %}
+
+             </tfoot>
+           </table>
+         </div>
+       </div>
+     </div>
+   
+   
+
+   
+     </div>
+     </div>
+     </div>
+
+{% endblock %}

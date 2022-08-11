@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block breadcumbs %}
+    <div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">DETAILS COURSE</h4>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <h4>INFO COURS</h4>
+                <div class="col-md-6 mt-3" >
+                    <strong>LIEU DE DEPART : {{course.depart}}</strong> <br>
+                    <strong>DESTINATION  : {{course.destination}}</strong><br>
+                    <strong>DATE DE LA COURSE : {{course.date_course}}</strong><br>
+                    <strong>COURSE ACHEVEE LE : {{course.date_fin}}</strong><br>
+                    <strong>ETAT : {{course.etat_course}}</strong><br>
+                </div>
+                <div class="col-md-4">
+                    <h5>Motif</h5>
+                    {{course.motif}}
+                </div>
+                <div class="col-md-2 mt-3" >
+                    <a href="{% url 'gestions:delete_course' course.id %}" class="btn btn-danger btn-sm">SUPPRIMER COURSE </a>  
+                </div>
+          
+            </div>
+            
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <h4>AUTRES INFOS</h4>
+                <div class="col-md-2">
+                    {% if course.vehicule.engin_image %}
+                        <img src="http://127.0.0.1:8000/static{{course.vehicule.engin_image.url}}" class="mr-2" alt="Profile Page" width="200px" height="200px" style="border: 1px solid #ddd;">
+                    {% else %}
+                    <img src="" class="mr-2" alt="NO IMAGE" width="200px" height="200px" style="border: 1px solid #ddd;">
+                    {% endif %}
+                    
+                </div>
+                <div class="col-md-6 mt-3" >
+                    <strong>MARQUE : {{course.vehicule.marque}}</strong> <br>
+                    <strong>MODEL : {{course.vehicule.model}}</strong><br>
+                    <strong>MATRICULE : {{course.vehicule.matricule}}</strong><br>
+                    <strong>NUMERO DE CHARSIS : {{course.vehicule.numcharsis}}</strong><br>
+                </div>
+
+                <div class="col-md-4 mt-3" >
+                    <h6><u>Utilisateur </u></h6>
+                    <strong>NOM : {{course.employe.nom}}</strong> <br>
+                    <strong>PRENOMS : {{course.employe.prenom}}</strong><br>
+                    <strong>FONCTION : {{course.employe.fonction}}</strong><br>
+                    <strong>CONTACT : {{course.employe.contact}}</strong><br>
+                </div>
+          
+            </div>
+            
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

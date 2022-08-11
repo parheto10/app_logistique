@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block breadcumbs %}
+    <div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">ENGINS</h4>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+       <div class="col-12"> 
+   <div class="card">
+       <div class="card-body">
+         <h5 class="card-title">Listes des engins</h5>
+         {% if messages %}
+         <div class="alert alert-success text-center alert-dismissible " role="alert">
+             
+             <ul class="messages">
+                 {% for message in messages %}
+                 <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+                 {% endfor %}
+             </ul>
+             
+         </div>
+         {% endif %}
+
+         <div class="table-responsive">
+           <a href="{% url 'engins:ajout_car' %}" class="btn btn-primary" style="float: right; margin-right: 20px;" > Ajouter </a>
+           <table id="zero_config" class="table table-striped table-bordered">
+             <thead>
+               <tr>
+                 <th>MATRICULE</th>
+                 <th >MODEL</th>
+                 <th >MARQUE</th>
+                 <th >DATE D'ACHAT</th>
+                 <th >MISE EN CIRCULATION</th>
+                 <th >ETAT</th>
+                 <th >COULEUR</th>
+                 <th >TYPE</th>
+                 <th >ACTION</th>
+               </tr>
+             </thead>
+             <tbody>
+
+                {% for engin in engins %}
+                <tr>
+                    <td>{{engin.matricule}}</td>
+                    <td>{{engin.model}}</td>
+                    <td>{{engin.marque}}</td>
+                    <td>{{engin.date_achat}}</td>
+                    <td>{{engin.mise_en_circulation}}</td>
+                    <td style=" text-align:center;"><span {% if engin.etat == 'DISPONIBLE' %}class="bg-success" {% else %} class="bg-danger" {% endif %}  style="color: white;">{{engin.etat}}</span> </td>
+                    <td>{{engin.couleur}}</td>
+                    <td>{{engin.type_engins}}</td>
+                    <td>  
+                        <a href="{% url 'engins:edit_car' engin.id %}" class="btn btn-primary btn-sm">VOIR </a>  
+                    </td>
+                  </tr>
+                {% endfor %}
+
+             </tfoot>
+           </table>
+         </div>
+       </div>
+     </div>
+   
+   
+
+   
+     </div>
+     </div>
+     </div>
+
+{% endblock %}

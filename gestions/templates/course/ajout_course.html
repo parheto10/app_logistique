@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block breadcumbs %}
+    <div class="page-breadcrumb">
+          <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+              <h4 class="page-title">ENREGISTRER UNE COURSE</h4>
+            </div>
+          </div>
+        </div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+       <div class="col-12"> 
+        <div class="card">
+            <div class="card-body">
+                      <div class="card">
+                        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                          <div class="card-body">
+                            <h4 class="card-title">FORMULAIRE </h4>
+                            <div class="form-group row">
+                              <label
+                                for="fname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Lieu depart </label
+                              >
+                              <div class="col-sm-9">
+                                <input type="text" name="depart" class="form-control" required>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="lname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Destination</label
+                              >
+                              <div class="col-sm-9">
+                                <input type="text" name="destination" class="form-control" required>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label
+                                for="lname"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Date de la course</label
+                              >
+                              <div class="col-sm-9">
+                                <input type="date" name="date_course" class="form-control" required>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                                <label
+                                  for="cono1"
+                                  class="col-sm-3 text-end control-label col-form-label"
+                                  >Etat</label
+                                >
+                                <div class="col-sm-9">
+                                    <select class="select2 form-select shadow-none" name="etat_course" style="width: 100%; height: 36px" required>
+                                        <option value="EN COURS"> EN COURS </option>
+                                        <option value="TERMINER"> TERMINER </option>
+                                    </select>
+                                  </div>
+                            </div> 
+                            <div class="form-group row">
+                              <label
+                                for="cono1"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Utilisateur</label
+                              >
+                              <div class="col-sm-9">
+                                <select class="select2 form-select shadow-none" name="employe" style="width: 100%; height: 36px" required>
+                                    {% for employe in employes %}
+                                        <option value="{{employe.id}}"> {{employe.nom}} {{employe.prenom}} </option>
+                                    {% endfor %}
+                                </select>
+                              </div>
+
+                            </div>
+                            
+                            <div class="form-group row">
+                              <label
+                                for="cono1"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Engin utilisé</label
+                              >
+                              <div class="col-sm-9">
+                                <select class="select2 form-select shadow-none" name="vehicule" style="width: 100%; height: 36px" required>
+                                    {% for vehicule in vehicules %}
+                                        <option value="{{vehicule.id}}"> {{vehicule.matricule}} </option>
+                                    {% endfor %}
+                                </select>
+                              </div>
+                            </div>                            
+                            <div class="form-group row">
+                              <label
+                                for="cono1"
+                                class="col-sm-3 text-end control-label col-form-label"
+                                >Motif</label
+                              >
+                              <div class="col-sm-9">
+                                <textarea class="form-control" name="motif" rows="5" required></textarea>
+                              </div>
+                            </div>
+                          </div>
+                        
+                      </div>
+                    </div>  
+                    <div class="border-top">
+                        <div class="card-body">
+                          <button type="submit" class="btn btn-primary form-control">
+                            Valider
+                          </button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+      
+    </div>
+</div>
+</div>
+
+{% endblock %}
